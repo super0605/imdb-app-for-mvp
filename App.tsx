@@ -1,19 +1,22 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { PersistGate } from "redux-persist/integration/react";
+
 import NetworkStatus from "./src/components/NetworkStatus";
+import CustomActivityIndicator from "./src/components/CustomActivityIndicator";
 import MoviesScreen from "./src/screens/MoviesScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import MovieDetails from "./src/screens/MovieDetails";
 import FavoritesScreen from "./src/screens/FavoritesScreen";
 import configureStore from "./src/redux/store";
 
-const store = configureStore();
+const { store, persistor } = configureStore();
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 function BottomTabNavigation() {
   return (
@@ -70,20 +73,24 @@ function BottomTabNavigation() {
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen
-            name="BottomTabNavigation"
-            component={BottomTabNavigation}
-          />
-          <Stack.Screen name="MovieDetails" component={MovieDetails} />
-        </Stack.Navigator>
-        <NetworkStatus />
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen
+              name="BottomTabNavigation"
+              component={BottomTabNavigation}
+            />
+            <Stack.Screen name="MovieDetails" component={MovieDetails} />
+          </Stack.Navigator>
+          <NetworkStatus />
+        </NavigationContainer>
+        {/* <CustomActivityIndicator /> */}
+        
+      </PersistGate>
     </Provider>
   );
 }
