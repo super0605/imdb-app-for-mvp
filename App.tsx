@@ -7,7 +7,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { PersistGate } from "redux-persist/integration/react";
 
 import NetworkStatus from "./src/components/NetworkStatus";
-import CustomActivityIndicator from "./src/components/CustomActivityIndicator";
 import MoviesScreen from "./src/screens/MoviesScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import MovieDetails from "./src/screens/MovieDetails";
@@ -88,8 +87,6 @@ export default function App() {
           </Stack.Navigator>
           <NetworkStatus />
         </NavigationContainer>
-        {/* <CustomActivityIndicator /> */}
-        
       </PersistGate>
     </Provider>
   );
