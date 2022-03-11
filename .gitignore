@@ -93,3 +93,6 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 
 *.hprof
+
+#jest
+.jest/

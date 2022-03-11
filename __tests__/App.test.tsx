@@ -1,16 +1,9 @@
-import App from '../App';
-import { shallow, ShallowWrapper } from 'enzyme';
-import React from 'react';
+import React from "react";
+import renderer from "react-test-renderer";
 
-describe('App', () => {
-  describe('rendering', () => {
-    let wrapper: ShallowWrapper;
-    beforeEach(() => {
-      wrapper = shallow(<App />);
-    });
+import App from "../App";
 
-    it('should render a <LoadingSpinner />', () => {
-      expect(wrapper).not.toBeNull();
-    });
-  });
+it("renders correctly with defaults", () => {
+  const app = renderer.create(<App />).toJSON();
+  expect(app).toMatchSnapshot();
 });
